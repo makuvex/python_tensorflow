@@ -1,7 +1,66 @@
 import tensorflow.compat.v1 as tf
+import matplotlib.pyplot as plt
 
 
 
+
+
+'''
+g = tf.Graph()
+with g.as_default():
+    X = [1, 2, 3]
+    Y = [1, 2, 3]
+
+    W = tf.placeholder(tf.float32)
+
+    hypothesis = X * W
+
+    cost = tf.reduce_mean(tf.square(hypothesis - Y))
+
+    sess = tf.Session(graph=g)
+
+    sess.run(tf.global_variables_initializer())
+
+    W_val = []
+    cost_val = []
+
+    for i in range(-30, 50):
+        feed_W = i * 0.1
+        curr_cost, curr_W = sess.run([cost, W], feed_dict={W: feed_W})
+        W_val.append(curr_W)
+        cost_val.append(curr_cost)
+
+    plt.plot(W_val, cost_val)
+    plt.show()
+    plt.savefig('index.png')
+'''
+'''
+g = tf.Graph()
+with g.as_default():
+    x_train = [1, 2, 3]
+    y_train = [1, 2, 3]
+
+    W = tf.Variable(tf.random.normal([1]), name='weight')
+    b = tf.Variable(tf.random.normal([1]), name='bias')
+
+    # Our hyphothesis XW+b
+    hypothesis = x_train * W + b
+    
+    cost = tf.reduce_mean(tf.square(hypothesis - y_train))
+    optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.01)
+    train = optimizer.minimize(cost)
+    
+    session = tf.Session(graph=g)
+    session.run(tf.global_variables_initializer())
+    
+for step in range(5001):
+    session.run(train)
+    if step % 100 == 0:
+        print(step, session.run(cost), session.run(W), session.run(b))
+'''
+
+
+'''
 g = tf.Graph()
 with g.as_default():   
     a = tf.constant(17.5)
@@ -20,7 +79,7 @@ with g.as_default():
 
 
 print(session.run(y, feed_dict={a: mathScore, b: englishScore}))
-
+'''
 
 '''
 g = tf.Graph()
@@ -64,6 +123,7 @@ with g.as_default():
     X = tf.placeholder(tf.float32)
     Y = tf.placeholder(tf.float32)
     H = W * X + b
+    
     cost = tf.reduce_mean(tf.square(H - Y))
     a = tf.Variable(0.01)
     optimizer = tf.train.GradientDescentOptimizer(a)
